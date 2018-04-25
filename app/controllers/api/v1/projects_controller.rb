@@ -3,7 +3,7 @@ class Api::V1::ProjectsController < ApplicationController
 
   def index 
     render json:{
-      data: active_user.projects.all.select(:id, :name, :code)
+      data: active_user.projects.all.select(:id, :name, :code).order(id: :desc)
     }
   end
 
@@ -15,7 +15,7 @@ class Api::V1::ProjectsController < ApplicationController
 
     if project.save 
       render json: {
-        data: active_user.projects.all.select(:id, :name, :code)
+        data: active_user.projects.all.select(:id, :name, :code).order(id: :desc)
       }
     else
       head(:bad_request)
