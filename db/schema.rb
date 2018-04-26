@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423221057) do
+ActiveRecord::Schema.define(version: 20180426001313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "panels", force: :cascade do |t|
+    t.bigint "project_id"
+    t.string "name"
+    t.integer "tracking_frequency", default: 0
+    t.integer "target_goal", default: 0
+    t.integer "current_goal", default: 0
+    t.integer "potential_goal", default: 0
+    t.string "goal_unit_label", default: "0"
+    t.boolean "is_currency", default: false
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_panels_on_project_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.bigint "user_id"
@@ -46,5 +61,6 @@ ActiveRecord::Schema.define(version: 20180423221057) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "panels", "projects"
   add_foreign_key "projects", "users"
 end

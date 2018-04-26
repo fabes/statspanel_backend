@@ -1,4 +1,7 @@
 FactoryBot.define do
+  factory :panel do
+    project nil
+  end
   factory :project do
     name 'Test Project'
     code SecureRandom.hex(3)
